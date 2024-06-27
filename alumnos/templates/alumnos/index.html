@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
+  <title>INICIO</title>
+</head>
+<body>
+
+  <!--navbar-->
+  <header class="header" id="header">
+    <nav class="nav container">
+       <a href="{% url 'index' %}" class="nav__logo">
+        <img src="{% static 'img/logo.jpg' %}" alt="Inicio" width="50" height="50">
+       </a>
+
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+
+             <li class="nav__item">
+                <a href="{% url 'index' %}" class="nav__link">
+                   <i class="ri-arrow-right-up-line"></i>
+                   <span>Inicio Sesión</span>
+                </a>
+             </li>
+
+             <li class="nav__item">
+                <a href="productos.html" class="nav__link">
+                   <i class="ri-arrow-right-up-line"></i>
+                   <span>Productos</span>
+                </a>
+             </li>
+
+             <li class="nav__item">
+              <a href="listaProductos.html" class="nav__link">
+                 <i class="ri-arrow-right-up-line"></i>
+                 <span>Comprar</span>
+              </a>
+           </li>
+          </ul>
+
+          <!--boton cerrar-->
+          <div class="nav__close" id="nav-close">
+             <i class="ri-close-line"></i>
+          </div>
+
+          <!--social-->
+          <div class="nav__social">
+             <a href="#" target="_blank" class="nav__social-link">
+                <i class="ri-instagram-line"></i>
+             </a>
+             <a href="#" target="_blank" class="nav__social-link">
+                <i class="ri-facebook-line"></i>
+             </a>
+             <a href="#" target="_blank" class="nav__social-link">
+                <i class="ri-tiktok-line"></i>
+             </a>
+              <a class="nav__social-link" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="ri-shopping-bag-line"></i>
+              </a>
+          </div>
+       </div>
+       <!--toggle button-->
+       <div class="nav__toggle" id="nav-toggle">
+          <i class="ri-menu-line"></i>
+       </div>
+
+    </nav>
+ </header>
+ <!--fin navbar-->
+ <!-- Aquí está la ventana modal -->
+ <div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Título de la ventana modal</h5>
+        <button type="button" class="close" data-bs-dismiss="modal">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <h5>Productos Seleccionados:</h5>
+          <ul id="listaProductos"></ul>
+          <p id="precioTotal">Total: $0</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="vaciarCarritoBtn">Vaciar Carrito</button>
+          <a href="listaProductos.html" class="btn btn-danger">Comprar</a>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+
+      </div>        
+    </div>
+  </div>
+</div>
+<!-- Aquí termina tu ventana modal -->
+
+  <div id="textxd" class="row" style="margin: 5%; margin-top: 15%; ">
+      <div class="col-md-6">
+          <h1 style="text-align: center; margin-top: -15%;">¿Quienes somos?</h1>
+          <h2 style="margin-top: 5%;">Nuestra Historia</h2>
+          <p>Somos un grupo de vecinos comprometidos con nuestra comunidad y con una pasión compartida por la jardinería. 
+            Todo comenzó cuando decidimos unir fuerzas para vender productos relacionados con el mundo de las plantas y destinar 
+            los beneficios a una fundación sin fines de lucro.
+          </p>
+          <h2>Nuestra Misión</h2>
+          <p>
+            Nuestra misión es doble: ayudar a nuestros vecinos a embellecer sus espacios verdes y, al mismo tiempo, contribuir al bienestar de quienes más lo necesitan. 
+            Creemos que la naturaleza tiene un poder sanador y queremos compartirlo con todos.
+          </p>
+          <h2>¿Qué Ofrecemos?</h2>
+          <p>
+            Maceteros y Jardineras: Diseñamos y fabricamos maceteros de distintos tamaños y estilos para que puedas crear tu propio oasis verde en casa.
+          </p>
+          <p>
+            Tierra de Hojas y Abono: Contamos con tierra de hojas de alta calidad y abono orgánico para nutrir tus plantas y flores.
+          </p>
+          <p>
+            Flores y Arbustos: Ofrecemos una variedad de flores y arbustos para embellecer tus jardines y balcones.
+          </p>
+      </div>
+        <div class="col-md-6">
+          <div class="container" id="carrusel-inico">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                  <img src="{% static 'img/nosotros1.jpg' %}" class="d-block w-100" alt="..." width="100" height="400">
+                  <div class="carousel-caption d-none d-md-block">
+                  </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                  <img src="{% static 'img/nosotros2.jpg' %}" class="d-block w-100" alt="..." width="100" height="400">
+                  <div class="carousel-caption d-none d-md-block">
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="{% static 'img/nosotros3.jpg' %}" class="d-block w-100" alt="..." width="100" height="400">
+                  <div class="carousel-caption d-none d-md-block">
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+      </div>
+  </div>
+  <h1 style="text-align: center;">Productos destacados</h1>
+  <div class="container__card">
+    <div class="card__container">
+      <!--primer card-->
+
+      <article class="card__article">
+        <img src="{% static 'img/cactus1.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">CACTUS</h2>
+          <a href="#" class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+
+      <!--segundo card-->
+      <article class="card__article">
+        <img src="{% static 'img/suculentas1.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">SUCULENTAS</h2>
+          <a class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+
+      <!--tercer card-->
+      <article class="card__article ">
+        <img src="{% static 'img/rosas1.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">ROSAS</h2>
+          <a href="#" class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+
+      <!--primer card-->
+      <article class="card__article">
+        <img src="{% static 'img/macetero1.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">MACETERO 1</h2>
+          <a href="#" class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+      <!--segundo card-->
+      <article class="card__article">
+        <img src="{% static 'img/macetero2.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">MACETERO 2</h2>
+          <a class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+      <!--tercer card-->
+      <article class="card__article ">
+        <img src="{% static 'img/macetero3.jpg' %}" alt="image" class="card__img">
+        <div class="card__data">
+          <span class="card__description">XXXXXXXXXXXXXX</span>
+          <h2 class="card__title card-title">MACETERO 3</h2>
+          <a href="#" class="card__button btn btn-primary precio-btn" data-precio="1000">1000</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="{% static 'JS/carrito.js' %}"></script>
+  <script src="{% static 'JS/navbar.js' %}"></script>
+</body>
+</html>
