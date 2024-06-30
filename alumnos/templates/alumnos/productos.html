@@ -35,7 +35,15 @@
                    <span>Productos</span>
                 </a>
              </li>
+             
+             <li class="nav__item">
+              <a href="{%url 'crud'%}" class="nav__link">
+                  <i class="ri-arrow-right-up-line"></i>
+                  <span>Gestionar productos</span>
+              </a>
+              </li>
           </ul>
+
 
           <!--boton cerrar-->
           <div class="nav__close" id="nav-close">
@@ -95,7 +103,7 @@
     <div class="card__container" style="margin-top: 5%;">
       {% for producto in productos %}
         <article class="card__article">
-          <img src="{% static 'img/macetero1.jpg' %}" alt="image" class="card__img">
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="card__img producto-imagen">
 
           <div class="card__data">
             <span class="card__description">XXXXXXXXXXXXXX</span>

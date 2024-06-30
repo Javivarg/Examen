@@ -13,6 +13,7 @@ class Producto(models.Model):
     producto = models.CharField(max_length=20)
     precio = models.PositiveIntegerField()
     id_categoria = models.ForeignKey('Categoria',on_delete=models.CASCADE, db_column='idCategoria')
+    imagen = models.ImageField(upload_to='productos/', default='media/default.png')
     activo = models.IntegerField()
 def __str__(self):
     return str(self.producto)+" $"+str(self.precio)
