@@ -12,92 +12,110 @@
     <title>EDITAR PRODUCTOS</title>
 </head>
 <body>
-    <!--navbar-->
+  <!-- Navbar -->
     <header class="header" id="header">
-    <nav class="nav container">
+        <nav class="nav container">
         <a href="{% url 'index' %}" class="nav__logo">
-        <img src="{% static 'img/logo.jpg' %}" alt="Inicio" width="50" height="50">
+            <img src="{% static 'img/logo.jpg' %}" alt="Inicio" width="50" height="50">
         </a>
 
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
-
-                <li class="nav__item">
-                <a href="{% url 'inicioS' %}" class="nav__link">
-                    <i class="ri-arrow-right-up-line"></i>
-                    <span>Inicio Sesión</span>
-                </a>
-                </li>
-
+                {% if user.is_authenticated %}
+                    <li class="nav__item">
+                        <a href="#" class="nav__link">
+                            <i class="ri-arrow-right-up-line"></i>
+                            <span>Hola {{ user.username }}</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{% url 'salir' %}" class="nav__link">
+                            <i class="ri-arrow-right-up-line"></i>
+                            <span>Cerrar Sesión</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{% url 'crud' %}" class="nav__link">
+                            <i class="ri-arrow-right-up-line"></i>
+                            <span>Gestionar productos</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav__item">
+                        <a href="{% url 'acceder' %}" class="nav__link">
+                            <i class="ri-arrow-right-up-line"></i>
+                            <span>Iniciar Sesión</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{% url 'registro' %}" class="nav__link">
+                            <i class="ri-arrow-right-up-line"></i>
+                            <span>¿No tienes cuenta? Regístrate</span>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav__item">
                 <a href="{% url 'productos' %}"  class="nav__link">
                     <i class="ri-arrow-right-up-line"></i>
                     <span>Productos</span>
                 </a>
                 </li>
-
-                <li class="nav__item">
-                <a href="{%url 'crud'%}" class="nav__link">
-                    <i class="ri-arrow-right-up-line"></i>
-                    <span>Gestionar productos</span>
-                </a>
-                </li>
             </ul>
 
-            <!--boton cerrar-->
+            <!-- Botón cerrar -->
             <div class="nav__close" id="nav-close">
                 <i class="ri-close-line"></i>
             </div>
 
-            <!--social-->
+            <!-- Social -->
             <div class="nav__social">
                 <a href="#" target="_blank" class="nav__social-link">
-                <i class="ri-instagram-line"></i>
+                    <i class="ri-instagram-line"></i>
                 </a>
                 <a href="#" target="_blank" class="nav__social-link">
-                <i class="ri-facebook-line"></i>
+                    <i class="ri-facebook-line"></i>
                 </a>
                 <a href="#" target="_blank" class="nav__social-link">
-                <i class="ri-tiktok-line"></i>
+                    <i class="ri-tiktok-line"></i>
                 </a>
                 <a class="nav__social-link" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="ri-shopping-bag-line"></i>
+                    <i class="ri-shopping-bag-line"></i>
                 </a>
             </div>
         </div>
-        <!--toggle button-->
+        <!-- Toggle button -->
         <div class="nav__toggle" id="nav-toggle">
             <i class="ri-menu-line"></i>
         </div>
 
-    </nav>
+        </nav>
     </header>
-    <!--fin navbar-->
-    <!-- Aquí está la ventana modal -->
-    <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Título de la ventana modal</h5>
-            <button type="button" class="close" data-bs-dismiss="modal">X</button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-body">
-            <h5>Productos Seleccionados:</h5>
-            <ul id="listaProductos"></ul>
-            <p id="precioTotal">Total: $0</p>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="vaciarCarritoBtn">Vaciar Carrito</button>
-            <a href="listaProductos.html" class="btn btn-danger">Comprar</a>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+ <!-- Fin Navbar -->
 
-        </div>        
+ <!-- Ventana Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Título de la ventana modal</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                    <h5>Productos Seleccionados:</h5>
+                    <ul id="listaProductos"></ul>
+                    <p id="precioTotal">Total: $0</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="vaciarCarritoBtn">Vaciar Carrito</button>
+                    <a href="listaProductos.html" class="btn btn-danger">Comprar</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>        
+            </div>
         </div>
     </div>
-    </div>
-    <!-- Aquí termina tu ventana modal -->
+<!-- Fin Ventana Modal -->
     <div style="text-align: center;">
         {% if producto %}
             <h2>Agregar Productos</h2> <br>

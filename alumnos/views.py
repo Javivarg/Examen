@@ -1,10 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Categoria, Producto
+from django.views import View
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 def index(request):
     context = {}
     return render(request, 'alumnos/index.html', context)
+
+def registro(request):
+    context = {}
+    return render(request, 'alumnos/registro.html', context)
 
 
 def productos(request):
@@ -103,3 +111,47 @@ def productosUpdate(request):
         productos=Producto.objects.all()
         context={'productos':productos}
         return render(request, 'alumnos/productos_list.html', context)
+    
+class VistaRegistro(View):
+
+    #noinspecton PyMethodMayBeStatic
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request,'alumnos/registro.html',{"form":form})
+    
+    #noinspecton PyMethodMayBeStatic
+    def post(self,request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            usuario=form.save()
+            nombre = form.cleaned_data.get("username")
+            messages.success(request, F"Bienvenido a la pagina {nombre}")
+            login(request, usuario)
+            return redirect("index")
+        else:
+            for msg in form.error_messages:
+                messages.error(request, form.error_messages[msg])
+
+def acceder(request):
+    if request.method == "POST":
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            usuario = authenticate(username=nombre, password=password)
+            if usuario is not None:
+                login(request, usuario)
+                messages.success(request, F"Bienvenido a la pagina {nombre}")
+                return redirect("index")
+            else:
+                messages.error(request, "los datos son incorrectos")
+        else:
+            messages.error(request, "los datos son incorrectos")
+    form=AuthenticationForm()
+    return render(request, 'alumnos/login.html', {'form':form})
+
+def salir(request):
+    logout(request)
+    messages.success(request, "Secion cerrada correctamente")
+    return redirect("index")
+
