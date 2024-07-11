@@ -1,0 +1,26 @@
+{% extends "alumnos/base.html"%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
+{% endblock %}
+{% block title %}PRODUCTOS{% endblock %}
+{% block content %}
+<div class="container__card" style="margin-bottom: 20%;">
+    <h1>MACETEROS</h1>
+    <div class="card__container" >
+        {% for x in maceteros %}
+            <article class="card__article">
+                <img src="{{ x.imagen.url }}" alt="{{ x.nombre }}" class="card__img producto-imagen">
+
+                <div class="card__data">
+                <span class="card__description">XXXXXXXXXXXXXX</span>
+                <h2 class="card__title card-title">{{ x.producto }}</h2>
+                <a href="#" class="card__button btn btn-primary precio-btn" data-precio="{{ x.precio }}">{{ x.precio }}</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

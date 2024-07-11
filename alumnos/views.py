@@ -16,18 +16,28 @@ def registro(request):
 
 
 def productos(request):
-    productos = Producto.objects.all
-    context={"productos": productos}
+    plantas=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 1')
+    maceteros=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 2')
+    tierras=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 3')
+    productos = Producto.objects.all()
+    categorias=Categoria.objects.all()
+    context={"productos": productos,"categorias":categorias, "plantas":plantas,"maceteros":maceteros,"tierras":tierras}
     return render(request, 'alumnos/productos.html', context)
 
-def inicioS(request):
-    context = {}
-    return render(request, 'alumnos/inicioS.html', context)
+def plantas(request):
+    plantas=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 1')
+    context={ "plantas":plantas,}
+    return render(request, 'alumnos/plantas.html', context)
 
-def crearU(request):
-    context = {}
-    return render(request, 'alumnos/crearU.html', context)
+def maceteros(request):
+    maceteros=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 2')
+    context={ "maceteros":maceteros}
+    return render(request, 'alumnos/maceteros.html', context)
 
+def tierras(request):
+    tierras=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 3')
+    context={ "tierras":tierras}
+    return render(request, 'alumnos/tierras.html', context)
 
 def crud(request):
     productos = Producto.objects.all
@@ -55,7 +65,6 @@ def productos_findEdit(request, pk):
     if pk != "":
         producto=Producto.objects.get(id_producto=pk)
         categorias=Categoria.objects.all()
-        #ERROR AQUIIIII
 
         context={"producto": producto, "categoria":categorias}
         if producto:
@@ -74,6 +83,7 @@ def productosAdd(request):
         producto=request.POST["producto"]
         precio=request.POST["precio"]
         categoria=request.POST["categoria"]
+        imagen = request.FILES["imagen"] if "imagen" in request.FILES else None
         activo="1"
 
         objCategoria=Categoria.objects.get(id_categoria = categoria)
@@ -82,7 +92,8 @@ def productosAdd(request):
             producto=producto,
             precio=precio,
             id_categoria=objCategoria,
-            activo=1
+            activo=1,
+            imagen=imagen
         )
         obj.save()
         context={'mensaje':"OK, Producto guardado"}
@@ -94,19 +105,21 @@ def productosUpdate(request):
         producto=request.POST["producto"]
         precio=request.POST["precio"]
         categoria=request.POST["categoria"]
+        activo="1"
 
         objCategoria=Categoria.objects.get(id_categoria = categoria)
 
-        productos=Producto()
-        productos.id_producto=id_producto
-        productos.producto=producto
-        productos.precio=precio
-        productos.id_categoria=objCategoria
-        productos.save()
+        producto=Producto()
+        producto.id_producto=id_producto
+        producto.producto=producto
+        producto.precio=precio
+        producto.id_categoria=objCategoria
+        producto.activo=1
+        producto.save()
 
         categorias=Categoria.objects.all()
-        context={'Mensaje':"OK, datos actualizados", 'categorias':categorias, 'productos':productos}
-        return render(request, 'alumnos/productos_list.html', context)
+        context={'Mensaje':"OK, datos actualizados", 'categorias':categorias, 'producto':producto}
+        return render(request, 'alumnos/productos_edit.html', context)
     else:
         productos=Producto.objects.all()
         context={'productos':productos}
@@ -154,4 +167,5 @@ def salir(request):
     logout(request)
     messages.success(request, "Secion cerrada correctamente")
     return redirect("index")
+
 
