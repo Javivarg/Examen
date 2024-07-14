@@ -12,6 +12,7 @@ urlpatterns = [
     path('plantas', views.plantas, name='plantas'),
     path('maceteros', views.maceteros, name='maceteros'),
     path('tierras', views.tierras, name='tierras'),
+    path('carrito', views.carrito, name='carrito'),
 
     path('crud', views.crud, name='crud'),
     path('productosAdd', views.productosAdd, name='productosAdd'),

@@ -1,4 +1,4 @@
-{% extends "alumnos/base.html"%}
+{% extends "alumnos/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
 
@@ -9,25 +9,36 @@
 
 {% block title %}AÑADIR PRODUCTOS{% endblock %}
 {% block content %}
-<div class="container" style="text-align: center; margin: 5%; margin-left: 20%;">
+<div class="container" style="text-align: center; margin: 5%; margin-top: 10%;">
     <h2>Agregar Productos</h2>
-    <form action="productosAdd" method="POST">
+    <form class="container-sm" action="{% url 'productosAdd' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <pre>ID: <input type="text" class="form-control" name="idProducto"></pre>
-        <pre>Producto: <input type="text" class="form-control" name="producto"></pre>
-        <pre>Precio: <input type="text" class="form-control" name="precio"></pre>
-        <pre>Imagen: <input type="file" class="form-control" name="imagen"></pre>
-        <pre>Categoria: <select name="categoria" class="form-select">
-            {% for categoria in categorias %}
-                <option value="{{categoria.id_categoria}}">{{categoria.categoria}}</option>
-            {% endfor %}
-         </select></pre>
-        <input type="submit" name="opcion" value="Agregar" class="btn btn-success">
-    </form><br><br>
+        <div class="mb-3">
+            <label for="idProducto" class="form-label">ID:</label>
+            <input type="text" class="form-control" id="idProducto" name="idProducto">
+        </div>
+        <div class="mb-3">
+            <label for="producto" class="form-label">Producto:</label>
+            <input type="text" class="form-control" id="producto" name="producto">
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio:</label>
+            <input type="text" class="form-control" id="precio" name="precio">
+        </div>
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoría:</label>
+            <select name="categoria" id="categoria" class="form-select">
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id_categoria }}">{{ categoria.categoria }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" name="opcion" value="Agregar" class="btn btn-success">Agregar</button>
+    </form>
 </div>
 <div id="idMensajes" class="container">
     {% if mensaje %}
-        {{mensaje}}
+        {{ mensaje }}
     {% endif %}
 </div>
 {% endblock %}

@@ -10,6 +10,10 @@ def index(request):
     context = {}
     return render(request, 'alumnos/index.html', context)
 
+def carrito(request):
+    context = {}
+    return render(request, 'alumnos/carrito.html', context)
+
 def registro(request):
     context = {}
     return render(request, 'alumnos/registro.html', context)
@@ -83,7 +87,6 @@ def productosAdd(request):
         producto=request.POST["producto"]
         precio=request.POST["precio"]
         categoria=request.POST["categoria"]
-        imagen = request.FILES["imagen"] if "imagen" in request.FILES else None
         activo="1"
 
         objCategoria=Categoria.objects.get(id_categoria = categoria)
@@ -92,8 +95,7 @@ def productosAdd(request):
             producto=producto,
             precio=precio,
             id_categoria=objCategoria,
-            activo=1,
-            imagen=imagen
+            activo=1
         )
         obj.save()
         context={'mensaje':"OK, Producto guardado"}

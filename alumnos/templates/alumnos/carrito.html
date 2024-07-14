@@ -1,0 +1,39 @@
+{% extends "alumnos/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
+{% endblock %}
+
+{% block title %}INICIO SESION{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col"></th> <!-- Para los botones de incremento y decremento -->
+                </tr>
+            </thead>
+            <tbody id="listaProductos2">
+                <!-- Aquí puedes llenar la tabla dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="row text-center">
+        <div class="col-sm-6 mb-3 mb-sm-0"> <!-- Para pantallas pequeñas y medianas -->
+            <a href="#" class="btn btn-danger" id="vaciarCarritoBtn">Limpiar</a>
+        </div>
+        <div class="col-sm-6"> <!-- Para pantallas pequeñas y medianas -->
+            <a href="{% url 'carrito' %}" class="btn btn-success">Comprar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

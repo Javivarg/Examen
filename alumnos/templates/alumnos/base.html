@@ -11,7 +11,7 @@
     </title>
     {% load crispy_forms_tags %}
     {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
     {% block css %}
     {% endblock %}
 </head>
@@ -20,111 +20,123 @@
     <header class="header" id="header">
         <nav class="nav container">
             <a href="{% url 'index' %}" class="nav__logo">
-            <img src="{% static 'img/logo.jpg' %}" alt="Inicio" width="52" height="52">
+                <img src="{% static 'img/logo.jpg' %}" alt="Inicio" width="52" height="52">
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                {% if user.is_authenticated %}
-                    <li class="nav__item" >
-                        <a href="{% url 'index' %}" class="nav__link">
+                    {% if user.is_authenticated %}
+                        <li class="nav__item">
+                            <a href="{% url 'index' %}" class="nav__link">
+                                <i class="ri-arrow-right-up-line"></i>
+                                <span>Hola {{ user.username }}</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'salir' %}" class="nav__link">
+                                <i class="ri-arrow-right-up-line"></i>
+                                <span>Cerrar Sesión</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'crud' %}" class="nav__link">
+                                <i class="ri-arrow-right-up-line"></i>
+                                <span>Gestionar productos</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav__item">
+                            <a href="{% url 'acceder' %}" class="nav__link">
+                                <i class="ri-arrow-right-up-line"></i>
+                                <span>Iniciar Sesión</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'registro' %}" class="nav__link">
+                                <i class="ri-arrow-right-up-line"></i>
+                                <span>¿No tienes cuenta? Regístrate</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav__item dropdown">
+                        <a class="nav__link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="ri-arrow-right-up-line"></i>
-                            <span>Hola {{ user.username }}</span>
+                            <span>Productos</span>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'plantas' %}">plantas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'maceteros' %}">maceteros</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tierras' %}">tierra de hojas</a></li>
+                        </ul>
                     </li>
-                    <li class="nav__item">
-                        <a href="{% url 'salir' %}" class="nav__link">
-                            <i class="ri-arrow-right-up-line"></i>
-                            <span>Cerrar Sesión</span>
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="{% url 'crud' %}" class="nav__link">
-                            <i class="ri-arrow-right-up-line"></i>
-                            <span>Gestionar productos</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="nav__item">
-                        <a href="{% url 'acceder' %}" class="nav__link">
-                            <i class="ri-arrow-right-up-line"></i>
-                            <span>Iniciar Sesión</span>
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="{% url 'registro' %}" class="nav__link">
-                            <i class="ri-arrow-right-up-line"></i>
-                            <span>¿No tienes cuenta? Regístrate</span>
-                        </a>
-                    </li>
-                {% endif %}
-                <li class="nav__item dropdown">
-                    <a class="nav__link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="ri-arrow-right-up-line"></i>
-                        <span>Productos</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'plantas' %}">plantas</a></li>
-                        <li><a class="dropdown-item" href="{% url 'maceteros' %}">maceteros</a></li>
-                        <li><a class="dropdown-item" href="{% url 'tierras' %}">tierra de hojas</a></li>
-                    </ul>
-                </li>
-                <!-- Botón cerrar -->
+                </ul>
                 <div class="nav__close" id="nav-close">
                     <i class="ri-close-line"></i>
                 </div>
-
                 <!-- Social -->
                 <div class="nav__social">
                     <a href="#" target="_blank" class="nav__social-link">
-                    <i class="ri-instagram-line"></i>
+                        <i class="ri-instagram-line"></i>
                     </a>
                     <a href="#" target="_blank" class="nav__social-link">
-                    <i class="ri-facebook-line"></i>
+                        <i class="ri-facebook-line"></i>
                     </a>
                     <a href="#" target="_blank" class="nav__social-link">
-                    <i class="ri-tiktok-line"></i>
+                        <i class="ri-tiktok-line"></i>
                     </a>
-                    <a class="nav__social-link" data-bs-toggle="modal" data-bs-target="#myModal">
-                    <i class="ri-shopping-bag-line"></i>
+                    <a class="nav__social-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <i class="ri-shopping-bag-line"></i>
                     </a>
                 </div>
             </div>
-            <!-- Toggle button -->
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-line"></i>
-            </div>
+             </div>
         </nav>
     </header>
     <!-- Fin Navbar -->
-    <!-- Aquí está la ventana modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Título de la ventana modal</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal">X</button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body">
-                    <h5>Productos Seleccionados:</h5>
-                    <ul id="listaProductos"></ul>
-                    <p id="precioTotal">Total: $0</p>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="vaciarCarritoBtn">Vaciar Carrito</button>
-                    <a href="listaProductos.html" class="btn btn-danger">Comprar</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
 
-                </div>        
+    <!-- offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col"></th> <!-- Para los botones de incremento y decremento -->
+                        </tr>
+                    </thead>
+                    <tbody id="listaProductos">
+                        <!-- Aquí puedes llenar la tabla dinámicamente con JavaScript -->
+                    </tbody>
+                    <th class="table-secondary" scope="row"><span id="precioTotal">$ 0</span></th>
+                </table>
+            </div>
+            <div class="row text-center">
+                <div class="col-sm-6 mb-3 mb-sm-0"> <!-- Para pantallas pequeñas y medianas -->
+                    <a href="#" class="btn btn-danger" id="vaciarCarritoBtn">Limpiar</a>
+                </div>
+                <div class="col-sm-6"> <!-- Para pantallas pequeñas y medianas -->
+                    <a href="{% url 'carrito' %}" class="btn btn-success">Comprar</a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Aquí termina tu ventana modal -->
-    {% block content %}
-        
-    {% endblock %}
+    <!-- Fin offcanvas -->
+
+    <div class="container mt-4">
+        <!-- Contenido principal -->
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{% static 'JS/carrito.js' %}"></script>

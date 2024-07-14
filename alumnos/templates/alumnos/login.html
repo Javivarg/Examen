@@ -9,11 +9,23 @@
 
 {% block title %}INICIO SESION{% endblock %}
 {% block content %}
-<div class="container" style="margin-top: 5%; margin-left: 20%; margin-right: 20%;">
-    <form method="POST" action="" class="mt-2" autocomplete="off">
-        {% csrf_token %}
-        {{ form|crispy }}
-    <button type="submit" class="btn btn-success" style="margin-top: 1%;">Iniciar sesion!</button>
-    </form>
+<h1 class="text-center"  style="margin-top: 15%;">INICIO DE SESION</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div>
+                <form method="POST" action="" class="mt-2" autocomplete="off">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-success mt-3">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 {% endblock %}

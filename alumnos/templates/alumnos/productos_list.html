@@ -1,7 +1,6 @@
-{% extends "alumnos/base.html"%}
+{% extends "alumnos/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
-
 
 {% block css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
@@ -10,44 +9,58 @@
 
 {% block title %}LISTA PRODUCTOS{% endblock %}
 {% block content %}
-<h1>LISTA DE PRODUCTOS</h1>
-<br>
-<div id="idMensajes">
-      {% if mensaje %}
-          {{mensaje}}
-      {% endif %}
+<div class="container mt-4">
+    <h1 class="text-center" style="margin-top: 15%;">LISTA DE PRODUCTOS</h1>
+    <div id="idMensajes">
+        {% if mensaje %}
+            {{ mensaje }}
+        {% endif %}
+    </div>
+    <div class="filter mb-4"></div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            {% if productos %}
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.id_producto }}</td>
+                            <td>{{ producto.producto }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>{{ producto.id_categoria.categoria }}</td>
+                            <td>
+                                <a href="{% url 'productos_findEdit' pk=producto.id_producto %}" class="btn btn-success">Modificar</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'productos_del' pk=producto.id_producto %}" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay productos disponibles.</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+    <div class="text-center">
+        <a href="{% url 'productosAdd' %}" class="btn btn-primary">Agregar</a>
+    </div>
 </div>
-<div class="filter">
-</div>
-<div class="container" style="margin-top: 5%;">
-   <table class="table">
-      {% if productos %}
-         <th scope="col" class="table-light"> ID </th>
-         <th scope="col" class="table-light"> Producto </th>
-         <th scope="col" class="table-light"> Precio </th>
-         <th scope="col" class="table-light"> ID Categoria </th>
-         <th scope="col" class="table-light"> Eliminar </th>
-         <th scope="col" class="table-light"> Modificar </th>
-         {% for x in productos %}
-               <tr>
-                  <td> {{x.id_producto}}
-                  <td> {{x.producto}}
-                  <td> {{x.precio}}
-                  <td> {{x.id_categoria.categoria}}
-                  <td> <button class="btn btn-success"><a href="{% url 'productos_findEdit' pk=x.id_producto%}" style="color: white;">Modificar</a></button>
-                  <td> <button class="btn btn-danger"><a href="{% url 'productos_del' pk=x.id_producto%}" style="color: white;">Eliminar</a></button>
-               </tr>
-         {% endfor %}
-      {% endif %}
-   </table>
-   <button type="button" class="btn btn-primary">
-      <a href="{% url 'productosAdd' %}" style="color: white;"> Agregar</a>
-   </button>
-</div>
-<script src="//ajax.goolgeapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-      $(document).ready(function(){
-         $("#idMensajes").delay(2000).fadeOut("slow");
-      });
+    $(document).ready(function(){
+        $("#idMensajes").delay(2000).fadeOut("slow");
+    });
 </script>
 {% endblock %}

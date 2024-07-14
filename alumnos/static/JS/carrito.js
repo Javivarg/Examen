@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaProductos = document.getElementById('listaProductos');
     const precioTotalElement = document.getElementById('precioTotal');
     const vaciarCarritoBtn = document.getElementById('vaciarCarritoBtn');
+
     let carrito = cargarCarritoDesdeLocalStorage() || {};
 
     // Cargar productos del carrito cuando la página se carga
@@ -21,12 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     cantidad: 1
                 };
             }
-            console.log(carrito[productoNombre].precio)
 
             actualizarVentanaEmergente();
             guardarCarritoEnLocalStorage(carrito);
-            // Mostrar una alerta
-            alert(`¡${productoNombre} agregado al carrito!`);
         });
     });
 
@@ -39,37 +37,60 @@ document.addEventListener('DOMContentLoaded', function() {
     function actualizarVentanaEmergente() {
         listaProductos.innerHTML = '';
         let total = 0;
-
+    
         for (const productoNombre in carrito) {
             const producto = carrito[productoNombre];
-            const listItem = document.createElement('li');
-            listItem.textContent = `${productoNombre} x ${producto.cantidad}: $${(producto.precio * producto.cantidad).toFixed(2)}`;
+            const listItem = document.createElement('tr');
+            listItem.className = 'producto-item';
+    
+            const productoText = document.createElement('td');
+            
+            productoText.textContent = `${productoNombre}`;
+            listItem.appendChild(productoText);
+
+            const productoCant = document.createElement('td');
+            
+            productoCant.textContent = `${producto.cantidad}`;
+            listItem.appendChild(productoCant);
+
+            const productoPrecio = document.createElement('td');
+            
+            productoPrecio.textContent = `$${(producto.precio * producto.cantidad)}`;
+            listItem.appendChild(productoPrecio);
+    
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'btn-group';
+    
+            const incrementButton = document.createElement('button');
+            incrementButton.className = 'btn btn-success';
+            incrementButton.textContent = '+';
+            incrementButton.addEventListener('click', function() {
+                carrito[productoNombre].cantidad++;
+                actualizarVentanaEmergente();
+                guardarCarritoEnLocalStorage(carrito);
+            });
+            btnGroup.appendChild(incrementButton);
+    
+            const decrementButton = document.createElement('button');
+            decrementButton.className = 'btn btn-danger';
+            decrementButton.textContent = '-';
+            decrementButton.addEventListener('click', function() {
+                carrito[productoNombre].cantidad--;
+                if (carrito[productoNombre].cantidad === 0) {
+                    delete carrito[productoNombre];
+                }
+                actualizarVentanaEmergente();
+                guardarCarritoEnLocalStorage(carrito);
+            });
+            btnGroup.appendChild(decrementButton);
+            
+            listItem.appendChild(btnGroup);
             listaProductos.appendChild(listItem);
             total += producto.precio * producto.cantidad;
         }
-
-        precioTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    
+        precioTotalElement.textContent = `Total: $${total}`;
     }
-
-    function actualizarLista() {
-        const listaProductos = document.getElementById('listaProductos');
-        const precioTotalElement = document.getElementById('precioTotalElement');
-        let total = 0;
-    
-        // Supongamos que 'carrito' es un objeto con los productos y sus detalles
-        for (const productoNombre in carrito) {
-            const producto = carrito[productoNombre];
-            const listItem = document.createElement('li');
-            listItem.textContent = `${productoNombre} x ${producto.cantidad}: $${(producto.precio * producto.cantidad).toFixed(2)}`;
-            listaProductos.appendChild(listItem);
-            total += producto.precio * producto.cantidad;
-        }
-    
-        precioTotalElement.textContent = `Total: $${total.toFixed(2)}`;
-    }
-    
-    // Llama a la función para actualizar la lista y el precio total
-    actualizarLista();
     
 
     // Almacenar el carrito en localStorage

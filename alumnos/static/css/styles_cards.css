@@ -265,9 +265,10 @@ html {
 .nav__toggle{
   display: flex;
   color: var(--white-color);
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
 }
+
 
 
 /* Navigation for mobile devices */
@@ -441,4 +442,13 @@ html {
     column-gap: 3.5rem;
   }
 
+}
+/* --- BTN OFFCANVAS--*/
+
+#offcanvasRight {
+  max-width: 80%; /* Ancho máximo del offcanvas */
+  height: 80vh; /* Altura del offcanvas (80% del viewport height) */
+}
+.offcanvas-body {
+  padding: 20px; /* Espaciado interno del cuerpo del offcanvas */
 }
