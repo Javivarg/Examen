@@ -4,7 +4,6 @@ from .views import VistaRegistro
 
 urlpatterns = [
     path('index', views.index, name='index'),
-    path('productos', views.productos, name='productos'),
     path('registro', VistaRegistro.as_view(), name='registro'),
     path('login', views.acceder, name='login'),
     path('salir', views.salir, name='salir'),

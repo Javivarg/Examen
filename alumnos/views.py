@@ -7,7 +7,8 @@ from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 def index(request):
-    context = {}
+    productos = Producto.objects.all()
+    context = {"productos": productos}
     return render(request, 'alumnos/index.html', context)
 
 def carrito(request):
@@ -16,17 +17,8 @@ def carrito(request):
 
 def registro(request):
     context = {}
-    return render(request, 'alumnos/registro.html', context)
+    return render(request, 'alumnos/carro.html', context)
 
-
-def productos(request):
-    plantas=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 1')
-    maceteros=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 2')
-    tierras=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 3')
-    productos = Producto.objects.all()
-    categorias=Categoria.objects.all()
-    context={"productos": productos,"categorias":categorias, "plantas":plantas,"maceteros":maceteros,"tierras":tierras}
-    return render(request, 'alumnos/productos.html', context)
 
 def plantas(request):
     plantas=Producto.objects.raw('SELECT * FROM alumnos_producto WHERE idCategoria = 1')

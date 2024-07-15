@@ -11,6 +11,7 @@
     </title>
     {% load crispy_forms_tags %}
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles_cards.css' %}">
     {% block css %}
     {% endblock %}
@@ -119,23 +120,53 @@
                 </table>
             </div>
             <div class="row text-center">
-                <div class="col-sm-6 mb-3 mb-sm-0"> <!-- Para pantallas pequeñas y medianas -->
+                <div> <!-- Para pantallas pequeñas y medianas -->
                     <a href="#" class="btn btn-danger" id="vaciarCarritoBtn">Limpiar</a>
                 </div>
-                <div class="col-sm-6"> <!-- Para pantallas pequeñas y medianas -->
+                <div> <!-- Para pantallas pequeñas y medianas -->
                     <a href="{% url 'carrito' %}" class="btn btn-success">Comprar</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- Fin offcanvas -->
-
     <div class="container mt-4">
         <!-- Contenido principal -->
         {% block content %}
         {% endblock %}
     </div>
-
+    <!--Pie de pagina-->
+    <footer class="footer" style="margin-top: 20%;" id="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3 class="footer__title">Contacto</h3>
+                    <ul class="footer__links">
+                        <li><a href="#" class="footer__link">Email</a></li>
+                        <li><a href="#" class="footer__link">Teléfono</a></li>
+                        <li><a href="#" class="footer__link">Dirección</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3 class="footer__title">Enlaces útiles</h3>
+                    <ul class="footer__links">
+                        <li><a href="#" class="footer__link">Acerca de nosotros</a></li>
+                        <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                        <li><a href="#" class="footer__link">Política de privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3 class="footer__title">Síguenos</h3>
+                    <ul class="footer__social">
+                        <li><a href="#" class="footer__social-link"><i class="ri-instagram-line"></i></a></li>
+                        <li><a href="#" class="footer__social-link"><i class="ri-facebook-line"></i></a></li>
+                        <li><a href="#" class="footer__social-link"><i class="ri-tiktok-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer__copyright">© 2024 Jardines Comunitarios. Todos los derechos reservados.</p>
+        </div>
+    </footer>    
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

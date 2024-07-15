@@ -44,17 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
             listItem.className = 'producto-item';
     
             const productoText = document.createElement('td');
-            
             productoText.textContent = `${productoNombre}`;
             listItem.appendChild(productoText);
 
             const productoCant = document.createElement('td');
-            
             productoCant.textContent = `${producto.cantidad}`;
             listItem.appendChild(productoCant);
 
             const productoPrecio = document.createElement('td');
-            
             productoPrecio.textContent = `$${(producto.precio * producto.cantidad)}`;
             listItem.appendChild(productoPrecio);
     
@@ -83,6 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 guardarCarritoEnLocalStorage(carrito);
             });
             btnGroup.appendChild(decrementButton);
+            
+            const eliminarButton = document.createElement('button');
+            eliminarButton.className = 'btn btn-warning';
+            eliminarButton.textContent = 'x';
+            eliminarButton.addEventListener('click', function() {
+                delete carrito[productoNombre];
+                actualizarVentanaEmergente();
+                guardarCarritoEnLocalStorage(carrito);
+            });
+            btnGroup.appendChild(eliminarButton);
             
             listItem.appendChild(btnGroup);
             listaProductos.appendChild(listItem);

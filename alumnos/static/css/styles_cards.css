@@ -445,10 +445,6 @@ html {
 }
 /* --- BTN OFFCANVAS--*/
 
-#offcanvasRight {
-  max-width: 80%; /* Ancho máximo del offcanvas */
-  height: 80vh; /* Altura del offcanvas (80% del viewport height) */
-}
-.offcanvas-body {
-  padding: 20px; /* Espaciado interno del cuerpo del offcanvas */
-}
+
+/*=============== pie de pagina ===============*/
+
